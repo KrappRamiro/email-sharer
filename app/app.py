@@ -3,6 +3,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import extract_msg
+import eml_parser
+import datetime
+import json
 
 
 app = FastAPI()
@@ -11,6 +14,11 @@ app.mount("/static/css", StaticFiles(directory="static/css"), name="css")
 app.mount("/static/img", StaticFiles(directory="static/img"), name="img")
 app.mount("/static/js", StaticFiles(directory="static/js"), name="js")
 templates = Jinja2Templates(directory="templates")
+
+def json_serial(obj):
+  if isinstance(obj, datetime.datetime):
+      serial = obj.isoformat()
+      return serial
 
 
 def get_msg(file: UploadFile):
@@ -29,12 +37,23 @@ def get_msg(file: UploadFile):
     email["attachments"] = attachments
     return email
 
+def get_eml(email: UploadFile):
+        parser = eml_parser.EmlParser(include_raw_body=True, include_attachment_data=True)
+        email_bytes = email.file.read()
+        parsed_eml = parser.decode_email_bytes(email_bytes)
+        return parsed_eml
+
+
 
 @app.post("/file-info")
 async def get_file_info(email: UploadFile):
-    return get_msg(email)
+    if email.filename.endswith(".msg"):
+        return get_msg(email)
+    elif email.filename.endswith(".eml"):
+        return get_eml(email)
+
 
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+   return templates.TemplateResponse("index.html", {"request": request})

@@ -12,7 +12,7 @@ emailForm.addEventListener("submit", async (event) => {
 async function getEmailInfo(emailForm) {
 	const formData = new FormData(emailForm);
 	try {
-		const response = await fetch("email-info", {
+		const response = await fetch("email/parse", {
 			method: "POST", // Change the HTTP method if needed
 			body: formData, // Pass the form data as the request body
 		});

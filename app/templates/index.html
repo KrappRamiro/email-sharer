@@ -7,14 +7,12 @@
       <link href="{{ url_for('css', path='style.css') }}" rel="stylesheet">
    </head>
    <body>
-      <form action='{{ url_for("get_file_info") }}'
-            enctype="multipart/form-data"
-            method="post">
+      <form enctype="multipart/form-data" id="email-form">
          <h1>Hola</h1>
          <label for="email">Subi tu archivo email:</label>
          <input type="file" id="email" name="email" />
          <button>submit</button>
       </form>
-      <script src=""></script>
+      <script src="{{ url_for('js', path='email-form.js') }} "></script>
    </body>
 </html>

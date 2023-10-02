@@ -97,7 +97,7 @@ async def index(request: Request):
 async def parse_email(email: UploadFile):
     try:
         parser = EmailParser()
-        return parser.parse(email)
+        return parser.parse(email.file, email.filename)
     except ValueError:
         raise HTTPException(status_code=422, detail="File not supported")
 
@@ -109,7 +109,7 @@ async def upload_email(email: UploadFile):
 
 
 @app.get("/email/get/file")
-async def get_email(name: str):
+async def get_email_as_file(name: str):
     path = f"mails/{name}"
     if not os.path.exists(path):
         return HTTPException(status_code=404, detail=f"File {path} not found")
@@ -117,7 +117,7 @@ async def get_email(name: str):
 
 
 @app.get("/email/get/json")
-async def get_email(name: str):
+async def get_email_as_json(name: str):
     path = f"mails/{name}"
 
     spooled_temp_file = get_temp_file(path)
@@ -125,15 +125,19 @@ async def get_email(name: str):
     return parser.parse(spooled_temp_file, filename=name)
 
 
+@app.get("/email/get/html")
+async def get_email_as_html(name: str):
+    """
+    Si tenes ����� en el email, https://answers.microsoft.com/en-us/windows/forum/all/why-do-i-see-black-diamonds-with-question-marks-in/e82c68ce-9e3e-4234-8d7d-0c85d2d1a1d9
+    """
+    path = f"mails/{name}"
+    return FileResponse(path, media_type="text/html")
+
+
 @app.get("/email/list")
 async def get_list_email():
     file_list = os.listdir("mails/")
     return file_list
-
-
-@app.get("/email/all")
-async def get_all_email():
-    return "To be implemented!"
 
 
 # -------------------------------------------- #

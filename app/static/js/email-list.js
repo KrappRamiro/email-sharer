@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		let li = document.createElement("li");
 		let emailElement = document.createElement("a");
 		emailElement.text = email;
-		emailElement.href = `email/get?name=${email}`;
+		emailElement.href = `email/get/json/?name=${email}`;
 		li.appendChild(emailElement);
 		emailListElement.appendChild(li);
 	});

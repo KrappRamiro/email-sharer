@@ -1,7 +1,7 @@
 const emailForm = document.querySelector("#email-form");
 emailForm.addEventListener("submit", async (event) => {
 	event.preventDefault();
-	email = await getEmailInfo(emailForm);
+	email = await uploadEmail(emailForm);
 	console.dir(email);
 });
 
@@ -9,10 +9,10 @@ emailForm.addEventListener("submit", async (event) => {
  * @param {HTMLFormElement} emailForm
  * @returns {Object}
  */
-async function getEmailInfo(emailForm) {
+async function uploadEmail(emailForm) {
 	const formData = new FormData(emailForm);
 	try {
-		const response = await fetch("email/parse", {
+		const response = await fetch("email/upload", {
 			method: "POST", // Change the HTTP method if needed
 			body: formData, // Pass the form data as the request body
 		});

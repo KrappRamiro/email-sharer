@@ -6,8 +6,12 @@ import extract_msg
 import eml_parser
 import aiofiles
 import os
+from tempfile import SpooledTemporaryFile
 from datetime import datetime
+from typing import BinaryIO
 
+
+# ? IDEA! en el parse, pasar email a un BinaryIO, y tratar de conseguir el filename de forma automatica. Si eso no se puede, deberia tirar un error diciendo "EmailParser no pudo obtener el filename, por favor pasa el filename como parámetro "
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -19,10 +23,8 @@ templates = Jinja2Templates(directory="templates")
 
 
 class EmailParser:
-    def parse(self, email: UploadFile) -> dict:
-        file_extension = (
-            os.path.splitext(email.filename)[-1].lower().removeprefix(".")
-        )  # eml or msg
+    def parse(self, email: SpooledTemporaryFile, filename: str) -> dict:
+        file_extension = os.path.splitext(filename)[-1].lower().removeprefix(".")  # eml or msg
         if file_extension == "eml":
             return self._parse_eml(email)
         elif file_extension == "msg":
@@ -30,9 +32,10 @@ class EmailParser:
         else:
             raise ValueError(f"Invalid email type {file_extension}. Use msg or eml")
 
-    def _parse_msg(self, file: UploadFile) -> dict:
+    def _parse_msg(self, file: SpooledTemporaryFile) -> dict:
         email = {}
-        msg = extract_msg.Message(file.file)
+
+        msg = extract_msg.Message(file)
         email["subject"] = msg.subject
         email["sender"] = msg.sender
         email["recipients"] = msg.to
@@ -46,23 +49,40 @@ class EmailParser:
         email["attachments"] = attachments
         return email
 
-    def _parse_eml(self, email: UploadFile) -> dict:
+    def _parse_eml(self, email: SpooledTemporaryFile) -> dict:
         parser = eml_parser.EmlParser(include_raw_body=True, include_attachment_data=True)
-        email_bytes = email.file.read()
-        parsed_eml = parser.decode_email_bytes(email_bytes)
+        eml_bytes = email.read()
+        parsed_eml = parser.decode_email_bytes(eml_bytes)
         return parsed_eml
 
 
-async def saveUploadFile(in_file: UploadFile):
+def get_temp_file(path: str) -> SpooledTemporaryFile:
+    if not os.path.exists(path):
+        return HTTPException(status_code=404, detail=f"File {path} not found")
+
+    # Create a SpooledTemporaryFile
+    spooled_temp_file = SpooledTemporaryFile(max_size=2000)
+    # Open the file you want to read from filesystem
+    with open(path, "rb") as f:
+        # Read the content of the file
+        data = f.read()
+        # Write the content to the SpooledTemporaryFile
+        spooled_temp_file.write(data)
+
+    spooled_temp_file.seek(0)
+    return spooled_temp_file
+
+
+def save_uploaded_file(in_file: SpooledTemporaryFile, filename):
     # https://stackoverflow.com/a/63581187/15965186
     current_time = datetime.now()
     current_time = current_time.strftime("%Y-%m-%d-%H-%M-%S")
-    out_file_path = f"mails/{current_time}_{in_file.filename}"
+    out_file_path = f"mails/{current_time}_{filename}"
     print(f"Saving file to {out_file_path}")
-    # ...
-    async with aiofiles.open(out_file_path, "wb") as out_file:
-        while content := await in_file.read(1024):  # async read chunk
-            await out_file.write(content)  # async write chunk
+
+    with open(out_file_path, "wb") as out_file:
+        while content := in_file.read(1024):  # read chunk
+            out_file.write(content)  # write chunk
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -85,15 +105,24 @@ async def parse_email(email: UploadFile):
 @app.post("/email/upload")
 async def upload_email(email: UploadFile):
     email.filename = email.filename.replace(" ", "-")
-    await saveUploadFile(email)
+    save_uploaded_file(email.file, email.filename)
 
 
-@app.get("/email/get")
+@app.get("/email/get/file")
 async def get_email(name: str):
     path = f"mails/{name}"
     if not os.path.exists(path):
         return HTTPException(status_code=404, detail=f"File {path} not found")
     return FileResponse(path)
+
+
+@app.get("/email/get/json")
+async def get_email(name: str):
+    path = f"mails/{name}"
+
+    spooled_temp_file = get_temp_file(path)
+    parser = EmailParser()
+    return parser.parse(spooled_temp_file, filename=name)
 
 
 @app.get("/email/list")

@@ -10,7 +10,8 @@
    <div id="email-info"></div>
    <ul id="email-list">
    </ul>
-   {{ email_list_macro.list_emails(current_user.owned_emails) }}
+   {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
+   {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
    <script src="{{ url_for('js', path='email-form.js') }} "></script>
    <script src="{{ url_for('js', path='email-list.js') }} "></script>
 {% endblock content %}

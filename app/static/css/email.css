@@ -1,0 +1,33 @@
+.email {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 10px;
+	height: 100px;
+	border-radius: 10px;
+
+	background-color: var(--ps-barely-white);
+}
+.email__info {
+	display: flex;
+	align-items: center;
+}
+
+.email__user-icon {
+	height: 60px;
+	width: auto;
+}
+
+.email__info-right {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.email__user-name {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.email__date {
+	font-size: 0.7;
+	font-weight: lighter;
+}

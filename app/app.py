@@ -45,6 +45,7 @@ current_user = User(
     name="Sandra Rodriguez",
     id="01a",
 )
+#! TODO: Que se agreguen todos los emails en mails/ al current_user cuando se loadee
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

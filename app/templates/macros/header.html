@@ -1,0 +1,27 @@
+{# templates/macros/header.html #}
+{% macro header(logo_url, user_logo_url) %}
+   <header class="header">
+      <div class="header__left-side">
+         <div class="header__logo">
+            <img class="image-fit-contain" alt="Email Sharer" src="{{ logo_url }}">
+         </img>
+      </div>
+   </div>
+   <div class="header__right-side">
+      {# Notifications icon #}
+      <box-icon name='bell' class="header__notifications"></box-icon>
+      {# User icon with arrow#}
+      <div class="header__user">
+         <div class="header__user-icon">
+            <img class="image-fit-contain" alt="user-logo" src="{{ user_logo_url }}">
+         </div>
+         <div class="header__user-arrow">
+            <box-icon name='chevron-down'>
+            </box-icon>
+         </div>
+      </div>
+      {# Config icon #}
+      <box-icon name='cog' class="header__config"></box-icon>
+   </div>
+</header>
+{% endmacro %}

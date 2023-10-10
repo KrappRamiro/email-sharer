@@ -4,14 +4,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import extract_msg
 import eml_parser
-import aiofiles
 import os
 from tempfile import SpooledTemporaryFile
 from datetime import datetime
-from typing import BinaryIO
 
-
-# ? IDEA! en el parse, pasar email a un BinaryIO, y tratar de conseguir el filename de forma automatica. Si eso no se puede, deberia tirar un error diciendo "EmailParser no pudo obtener el filename, por favor pasa el filename como parámetro "
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -87,7 +83,7 @@ def save_uploaded_file(in_file: SpooledTemporaryFile, filename):
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request, "current_user": "01a"})
 
 
 # -------------------------------------------- #

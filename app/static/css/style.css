@@ -1,3 +1,12 @@
+@import "variables.css";
 * {
 	box-sizing: border-box;
+}
+body {
+	margin: 0;
+}
+.image-fit-contain {
+	object-fit: contain;
+	height: 100%;
+	width: 100%;
 }

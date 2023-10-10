@@ -1,0 +1,4 @@
+{% import 'email-macro.html' as email_macro %}
+{% macro list_emails(email_list) %}
+   {% for email in email_list %}{{ email_macro.email(email) }}{% endfor %}
+{% endmacro %}

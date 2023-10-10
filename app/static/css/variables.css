@@ -1,0 +1,25 @@
+:root {
+	/* Colors */
+	/* || --- Blues --- */
+	--ps-blue-01: #e9ecf2;
+	--ps-blue-02: #d2d8e5;
+	--ps-blue-05: #909ebe;
+	--ps-blue-075: #586e9d;
+	--ps-blue-09: #365089;
+	--ps-blue: #203d7c;
+	--ps-blue-dark: #172f63;
+	--ps-blue-darker: #0e214a;
+
+	/* || --- Greens --- */
+	--ps-green: #09ac93;
+
+	/* || --- Greys and blacks --- */
+
+	--ps-barely-white: #f5f5f5;
+	--ps-barely-grey: #f8f8f8;
+	--ps-lighter-grey: #d9d9d9;
+	--ps-light-grey: #a6a7a8;
+	--ps-grey: #808080;
+	--ps-dark-grey: #404040;
+	--ps-almost-black: #1e1b1b;
+}

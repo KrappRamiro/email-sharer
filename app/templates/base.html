@@ -1,0 +1,20 @@
+{% import 'macros/header.html' as header %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Item Details</title>
+      <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+      <link href="{{ url_for('css', path='style.css') }}" rel="stylesheet">
+      <link href="{{ url_for('css', path='header.css') }}" rel="stylesheet">
+      <link rel="icon" href="{{ url_for('img', path='logo-small.svg') }}">
+   </head>
+   <body>
+      {% set logo_url = url_for('static', path='img/logo.png') %}
+      {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user ~ '.png') %}
+      {{ header.header(logo_url, user_icon_url) }}
+      {% block content %}
+      {% endblock content %}
+   </body>
+</html>

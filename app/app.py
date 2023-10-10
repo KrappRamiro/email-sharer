@@ -7,7 +7,44 @@ import eml_parser
 import os
 from tempfile import SpooledTemporaryFile
 from datetime import datetime
+from typing import List, Type
 
+
+class Email:
+    def __init__(
+        self,
+        subject: str,
+        sender: str,
+        recipients: str,
+        cc: str | None,
+        bcc: str | None,
+        date: str,
+        body: str,
+        attachments: list,
+    ) -> None:
+        self.subject = (subject,)
+        self.sender = (sender,)
+        self.recipients = (recipients,)
+        self.cc = cc
+        self.bcc = bcc
+        self.date = (date,)
+        self.body = body
+
+
+class User:
+    def __init__(self, name: str, id: str, owned_emails: List[Email] | None = None) -> None:
+        self.name = name
+        self.id = id
+        self.owned_emails = owned_emails if owned_emails is not None else []
+
+    def add_email(self, email: Email) -> list:
+        self.owned_emails.append(email)
+
+
+current_user = User(
+    name="Sandra Rodriguez",
+    id="01a",
+)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -83,9 +120,16 @@ def save_uploaded_file(in_file: SpooledTemporaryFile, filename):
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "current_user": "01a"})
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "current_user": current_user,
+        },
+    )
 
 
+# region
 # -------------------------------------------- #
 
 
@@ -100,8 +144,14 @@ async def parse_email(email: UploadFile):
 
 @app.post("/email/upload")
 async def upload_email(email: UploadFile):
+    if email.filename == "":
+        raise HTTPException(status_code=400, detail=f"File should have a name or exist")
     email.filename = email.filename.replace(" ", "-")
     save_uploaded_file(email.file, email.filename)
+    parser = EmailParser()
+    parsed_email = parser.parse(email.file, email.filename)
+    current_user.add_email(Email(**parsed_email))
+    print(current_user.owned_emails)
 
 
 @app.get("/email/get/file")
@@ -136,6 +186,7 @@ async def get_list_email():
     return file_list
 
 
+# endregion
 # -------------------------------------------- #
 
 

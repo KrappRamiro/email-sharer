@@ -1,3 +1,4 @@
+{% import 'macros/email-list.html' as email_list_macro %}
 {% extends "base.html" %}
 {% block content %}
    <form enctype="multipart/form-data" id="email-form">
@@ -9,6 +10,7 @@
    <div id="email-info"></div>
    <ul id="email-list">
    </ul>
+   {{ email_list_macro.list_emails(current_user.owned_emails) }}
    <script src="{{ url_for('js', path='email-form.js') }} "></script>
    <script src="{{ url_for('js', path='email-list.js') }} "></script>
 {% endblock content %}

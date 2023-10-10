@@ -12,7 +12,7 @@
    </head>
    <body>
       {% set logo_url = url_for('static', path='img/logo.png') %}
-      {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user ~ '.png') %}
+      {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
       {{ header.header(logo_url, user_icon_url) }}
       {% block content %}
       {% endblock content %}

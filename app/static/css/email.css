@@ -1,12 +1,13 @@
 .email {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 	padding: 10px;
 	height: 100px;
 	border-radius: 10px;
-
 	background-color: var(--ps-barely-white);
+	border: 1px solid var(--ps-lighter-grey);
 }
 .email__info {
 	display: flex;
@@ -19,15 +20,24 @@
 }
 
 .email__info-right {
+	flex: 1; /* Take up remaining space */
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	justify-content: space-between;
+	gap: 3px;
 }
 .email__user-name {
-	font-size: 1.5rem;
-	font-weight: bold;
+	font-family: "Work Sans", sans-serif;
+	font-weight: 500;
+	font-size: 1.2rem;
 }
 .email__date {
-	font-size: 0.7;
-	font-weight: lighter;
+	font-family: "Work Sans", sans-serif;
+	font-size: 0.6rem;
+	font-weight: 400;
+	color: var(--ps-grey);
+}
+.email__subject {
+	font-family: "DM Sans", sans-serif;
+	font-weight: 400;
 }

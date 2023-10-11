@@ -6,9 +6,9 @@
          </div>
          <div class="email__info-right">
             <div class="email__user-name">{{ user.name }}</div>
-            <div class="email__date">{{ email.date }}</div>
+            <div class="email__date">{{ email.date[0] }}</div>
          </div>
       </div>
-      <div class="email__subject">{{ email.subject }}</div>
+      <div class="email__subject">{{ email.subject[0] }}</div>
    </div>
 {% endmacro %}

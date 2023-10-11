@@ -10,3 +10,27 @@ body {
 	height: 100%;
 	width: 100%;
 }
+.header-padding {
+	padding-top: var(--header-height);
+}
+.title {
+	font-family: "Work Sans", sans-serif;
+	font-weight: bold;
+	font-size: 2rem;
+}
+.subtitle {
+	font-family: "Work Sans", sans-serif;
+	font-weight: 600;
+	font-size: 1.7rem;
+}
+
+.plus-button {
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid var(--ps-dark-grey);
+	border-radius: 10px;
+}

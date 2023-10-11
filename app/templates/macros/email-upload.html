@@ -1,0 +1,12 @@
+{% macro dialog() %}
+   <dialog id="email-upload-dialog" class="email-upload-dialog">
+      <h2 class="subtitle">Subir un correo</h2>
+      <form enctype="multipart/form-data" id="email-form">
+         <label for="email">Subi tu correo:</label>
+         <input type="file" id="email" name="email" accept=".html, .htm, .eml, .msg" />
+
+         <button type="button" id="close-email-dialog-button">Cancel</button>
+         <button type="submit">Submit</button>
+      </form>
+   </dialog>
+{% endmacro %}

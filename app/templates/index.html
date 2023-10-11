@@ -1,17 +1,23 @@
 {% import 'macros/email-list.html' as email_list_macro %}
+{% import 'macros/email-upload.html' as email_upload_macro %}
 {% extends "base.html" %}
 {% block content %}
-   <form enctype="multipart/form-data" id="email-form">
-      <h1>Hola</h1>
-      <label for="email">Subi tu archivo email:</label>
-      <input type="file" id="email" name="email" accept=".html, .htm, .eml, .msg" />
-      <button>submit</button>
-   </form>
-   <div id="email-info"></div>
-   <ul id="email-list">
-   </ul>
-   {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
-   {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
+   <div class="container mt-4">
+      <h1 class="title">
+         Hola {{ current_user.name }}!
+         <br>
+         Buenos días ✨
+      </h1>
+      <div class="d-flex align-items-center gap-3">
+         <h2 class="subtitle">Subir un correo</h2>
+         <div class="plus-button" id="open-email-dialog-button">
+            <box-icon name='plus'></box-icon>
+         </div>
+      </div>
+      {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
+      {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
+      {{ email_upload_macro.dialog() }}
+   </div>
    <script src="{{ url_for('js', path='email-form.js') }} "></script>
-   <script src="{{ url_for('js', path='email-list.js') }} "></script>
+   <script src="{{ url_for('js', path='email-dialog.js') }} "></script>
 {% endblock content %}

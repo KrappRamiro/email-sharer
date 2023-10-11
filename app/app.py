@@ -2,49 +2,15 @@ from fastapi import FastAPI, Request, UploadFile, HTTPException
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import extract_msg
-import eml_parser
 import os
 from tempfile import SpooledTemporaryFile
-from datetime import datetime
-from typing import List, Type
 
 
-class Email:
-    def __init__(
-        self,
-        subject: str,
-        sender: str,
-        recipients: str,
-        cc: str | None,
-        bcc: str | None,
-        date: str,
-        body: str,
-        attachments: list,
-    ) -> None:
-        self.subject = (subject,)
-        self.sender = (sender,)
-        self.recipients = (recipients,)
-        self.cc = cc
-        self.bcc = bcc
-        self.date = (date,)
-        self.body = body
+from utils.EmailParser import EmailParser
+from utils.user import User
+from utils.email import Email
+from utils.tempfile_utils import get_temp_file_from_disk, save_uploaded_file_to_disk
 
-
-class User:
-    def __init__(self, name: str, id: str, owned_emails: List[Email] | None = None) -> None:
-        self.name = name
-        self.id = id
-        self.owned_emails = owned_emails if owned_emails is not None else []
-
-    def add_email(self, email: Email) -> list:
-        self.owned_emails.append(email)
-
-
-current_user = User(
-    name="Sandra Rodriguez",
-    id="01a",
-)
 #! TODO: Que se agreguen todos los emails en mails/ al current_user cuando se loadee
 
 app = FastAPI()
@@ -56,67 +22,39 @@ app.mount("/mails", StaticFiles(directory="mails"), name="mails")
 templates = Jinja2Templates(directory="templates")
 
 
-class EmailParser:
-    def parse(self, email: SpooledTemporaryFile, filename: str) -> dict:
-        file_extension = os.path.splitext(filename)[-1].lower().removeprefix(".")  # eml or msg
-        if file_extension == "eml":
-            return self._parse_eml(email)
-        elif file_extension == "msg":
-            return self._parse_msg(email)
-        else:
-            raise ValueError(f"Invalid email type {file_extension}. Use msg or eml")
-
-    def _parse_msg(self, file: SpooledTemporaryFile) -> dict:
-        email = {}
-
-        msg = extract_msg.Message(file)
-        email["subject"] = msg.subject
-        email["sender"] = msg.sender
-        email["recipients"] = msg.to
-        email["cc"] = msg.cc
-        email["bcc"] = msg.bcc
-        email["date"] = msg.date
-        email["body"] = msg.body
-        attachments = []
-        for attachment in msg.attachments:
-            attachments.append(attachment.getFilename())
-        email["attachments"] = attachments
-        return email
-
-    def _parse_eml(self, email: SpooledTemporaryFile) -> dict:
-        parser = eml_parser.EmlParser(include_raw_body=True, include_attachment_data=True)
-        eml_bytes = email.read()
-        parsed_eml = parser.decode_email_bytes(eml_bytes)
-        return parsed_eml
+def remove_parentheses(value):
+    if value.startswith("('") and value.endswith("',)"):
+        return value[2:-3]
+    return value
 
 
-def get_temp_file(path: str) -> SpooledTemporaryFile:
-    if not os.path.exists(path):
-        return HTTPException(status_code=404, detail=f"File {path} not found")
+def get_email_file_as_dict(name: str) -> dict:
+    path = f"mails/{name}"
 
-    # Create a SpooledTemporaryFile
-    spooled_temp_file = SpooledTemporaryFile(max_size=2000)
-    # Open the file you want to read from filesystem
-    with open(path, "rb") as f:
-        # Read the content of the file
-        data = f.read()
-        # Write the content to the SpooledTemporaryFile
-        spooled_temp_file.write(data)
-
-    spooled_temp_file.seek(0)
-    return spooled_temp_file
+    spooled_temp_file = get_temp_file_from_disk(path)
+    parser = EmailParser()
+    return parser.parse(spooled_temp_file, filename=name)
 
 
-def save_uploaded_file(in_file: SpooledTemporaryFile, filename):
-    # https://stackoverflow.com/a/63581187/15965186
-    current_time = datetime.now()
-    current_time = current_time.strftime("%Y-%m-%d-%H-%M-%S")
-    out_file_path = f"mails/{current_time}_{filename}"
-    print(f"Saving file to {out_file_path}")
+def add_email_to_user(user: User, email_file: SpooledTemporaryFile, filename: str):
+    parser = EmailParser()
+    parsed_email = parser.parse(email_file, filename)
+    user.add_email(Email(**parsed_email))
 
-    with open(out_file_path, "wb") as out_file:
-        while content := in_file.read(1024):  # read chunk
-            out_file.write(content)  # write chunk
+
+def initialize_emails_to_user(user: User) -> None:
+    for email_filename in os.listdir("mails/"):
+        print(email_filename)
+        temp_file = get_temp_file_from_disk(f"mails/{email_filename}")
+        add_email_to_user(user, email_file=temp_file, filename=email_filename)
+
+
+current_user = User(
+    name="Sandra Rodriguez",
+    id="01a",
+)
+
+initialize_emails_to_user(current_user)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -148,11 +86,8 @@ async def upload_email(email: UploadFile):
     if email.filename == "":
         raise HTTPException(status_code=400, detail=f"File should have a name or exist")
     email.filename = email.filename.replace(" ", "-")
-    save_uploaded_file(email.file, email.filename)
-    parser = EmailParser()
-    parsed_email = parser.parse(email.file, email.filename)
-    current_user.add_email(Email(**parsed_email))
-    print(current_user.owned_emails)
+    save_uploaded_file_to_disk(email.file, email.filename)
+    add_email_to_user(current_user, email.file, email.filename)
 
 
 @app.get("/email/get/file")
@@ -165,11 +100,7 @@ async def get_email_as_file(name: str):
 
 @app.get("/email/get/json")
 async def get_email_as_json(name: str):
-    path = f"mails/{name}"
-
-    spooled_temp_file = get_temp_file(path)
-    parser = EmailParser()
-    return parser.parse(spooled_temp_file, filename=name)
+    return get_email_file_as_dict(name)
 
 
 @app.get("/email/get/html")

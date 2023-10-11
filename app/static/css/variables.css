@@ -1,4 +1,6 @@
 :root {
+	--header-height: 50px;
+
 	/* Colors */
 	/* || --- Blues --- */
 	--ps-blue-01: #e9ecf2;

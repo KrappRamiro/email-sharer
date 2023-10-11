@@ -33,4 +33,9 @@ body {
 	height: 30px;
 	border: 1px solid var(--ps-dark-grey);
 	border-radius: 10px;
+	cursor: pointer;
+}
+
+.plus-button:hover {
+	background-color: var(--ps-lighter-grey);
 }

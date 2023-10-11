@@ -1,0 +1,32 @@
+.submit-button,
+.cancel-button {
+	border-radius: 10px;
+	font-size: 1.2rem;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.cancel-button {
+	background-color: var(--ps-barely-grey);
+	border: 1px solid var(--ps-lighter-grey);
+	color: var(--ps-dark-grey);
+}
+
+.cancel-button:hover {
+	background-color: var(--ps-lighter-grey);
+	border: 1px solid var(--ps-light-grey);
+	color: var(--ps-almost-black);
+}
+
+.submit-button {
+	background-color: var(--ps-blue-09);
+	border: 1px solid var(--ps-blue-075);
+	color: white;
+}
+
+.submit-button:hover {
+	background-color: var(--ps-blue);
+	border: 1px solid var(--ps-blue-09);
+}

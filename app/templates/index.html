@@ -15,9 +15,12 @@
          </div>
       </div>
       {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
-      {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
-      {{ email_upload_macro.dialog() }}
+      <div class="my-4">
+         {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
+         {{ email_upload_macro.dialog() }}
+      </div>
    </div>
    <script src="{{ url_for('js', path='email-form.js') }} "></script>
    <script src="{{ url_for('js', path='email-dialog.js') }} "></script>
+   <script src="{{ url_for('js', path='dropzone.js') }} "></script>
 {% endblock content %}

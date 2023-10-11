@@ -9,6 +9,12 @@
 	background-color: var(--ps-barely-white);
 	border: 1px solid var(--ps-lighter-grey);
 }
+
+.email:hover {
+	background-color: var(--ps-lighter-grey);
+	border: 1px solid var(--ps-grey);
+}
+
 .email__info {
 	display: flex;
 	align-items: center;

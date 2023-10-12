@@ -1,3 +1,4 @@
+const emailDialog = document.querySelector("#email-upload-dialog");
 const emailForm = document.querySelector("#email-form");
 emailForm.addEventListener("submit", async (event) => {
 	event.preventDefault();
@@ -17,6 +18,8 @@ async function uploadEmail(emailForm) {
 			body: formData, // Pass the form data as the request body
 		});
 		if (response.ok) {
+			console.log("Response OK when uploading email");
+			emailDialog.close();
 			return await response.json();
 		} else {
 			console.log("ERROR: ", response.statusText);

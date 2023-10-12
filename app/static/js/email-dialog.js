@@ -5,8 +5,8 @@ const closeDialogButton = document.querySelector("#close-email-dialog-button");
 const openDialogButton = document.querySelector("#open-email-dialog-button");
 
 openDialogButton.addEventListener("click", () => {
-	dialog.showModal();
+	emailDialog.showModal();
 });
 closeDialogButton.addEventListener("click", () => {
-	dialog.close();
+	emailDialog.close();
 });

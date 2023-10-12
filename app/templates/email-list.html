@@ -1,0 +1,10 @@
+{% import 'macros/email.html' as email_macro %}
+<div class="email-list">
+   <h1 class="email-list__title">Mis correos</h1>
+   <div class="email-list__email-container">
+      a: {{ email_list }}
+      {% for email in email_list %}
+         <div class="me-3">{{ email_macro.email(email, current_user, user_logo_url, visualize_email_url) }}</div>
+      {% endfor %}
+   </div>
+</div>

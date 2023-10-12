@@ -9,6 +9,7 @@ class Email:
         date: str,
         body: str,
         attachments: list,
+        filename: str,
     ) -> None:
         self.subject = (subject,)
         self.sender = (sender,)
@@ -17,3 +18,4 @@ class Email:
         self.bcc = bcc
         self.date = (date,)
         self.body = body
+        self.filename = filename

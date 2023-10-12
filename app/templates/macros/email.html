@@ -9,7 +9,8 @@
             <div class="email__date">{{ email.date[0] }}</div>
          </div>
       </div>
-      <a href="/visualizar-email?name=Cierre-de-Ticket.msg"
-         class="email__subject">{{ email.subject[0] }}</a>
+      <a href="/visualizar-email?name={{ email.filename }}"
+         class="email__subject email__link">{{ email.subject[0] }}</a>
+      <button class="email__copylink">CPY</button>
    </div>
 {% endmacro %}

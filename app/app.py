@@ -39,7 +39,7 @@ def get_email_file_as_dict(name: str) -> dict:
 def add_email_to_user(user: User, email_file: SpooledTemporaryFile, filename: str):
     parser = EmailParser()
     parsed_email = parser.parse(email_file, filename)
-    user.add_email(Email(**parsed_email))
+    user.add_email(Email(**parsed_email, filename=filename))
 
 
 def initialize_emails_to_user(user: User) -> None:

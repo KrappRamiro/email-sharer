@@ -1,0 +1,6 @@
+version: "3"
+services:
+   email-sharer:
+      image: email-sharer-image
+      ports:
+         - "8081:80"

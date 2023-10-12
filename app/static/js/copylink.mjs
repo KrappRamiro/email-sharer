@@ -2,7 +2,6 @@ import { findElementlWithinParent, findParentBySelector } from "./domHelpers.mjs
 
 const copylinks = document.querySelectorAll(".email__copylink");
 copylinks.forEach((element) => {
-	console.log("¿? wtf man");
 	element.addEventListener("click", () => {
 		copylink(element);
 	});

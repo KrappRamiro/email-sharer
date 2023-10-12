@@ -22,7 +22,7 @@
 }
 
 .header__logo {
-	height: 75%;
+	height: calc(var(--header-height) * 0.6);
 	width: auto;
 }
 

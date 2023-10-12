@@ -46,4 +46,15 @@
 .email__subject {
 	font-family: "DM Sans", sans-serif;
 	font-weight: 400;
+	outline: none;
+	color: black;
+}
+
+.email__subject:link {
+	outline: none;
+	text-decoration: none;
+}
+
+.email__subject:hover {
+	outline: var(--ps-blue);
 }

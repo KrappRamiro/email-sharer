@@ -1,0 +1,22 @@
+.visualizar-email {
+	border: 1px solid var(--ps-lighter-grey);
+	border-radius: 30px;
+	padding: 30px;
+}
+.visualizar-email__subject {
+	font-family: "Work Sans", sans-serif;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.visualizar-email__sender,
+.visualizar-email__recipients,
+.visualizar-email__date {
+	color: var(--ps-dark-grey);
+}
+.visualizar-email__cc,
+.visualizar-email__bcc {
+	color: var(--ps-light-grey);
+}
+.visualizar-email__body {
+}

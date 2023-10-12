@@ -68,6 +68,18 @@ async def index(request: Request):
     )
 
 
+@app.get("/visualizar-email", response_class=HTMLResponse)
+async def index(request: Request, name):
+    return templates.TemplateResponse(
+        "visualizar-email.html",
+        {
+            "request": request,
+            "current_user": current_user,
+            "email": get_email_file_as_dict(name),
+        },
+    )
+
+
 # region
 # -------------------------------------------- #
 

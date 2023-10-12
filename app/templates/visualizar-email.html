@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+   <div class="container mt-4">
+      <div class="visualizar-email">
+         <div class="visualizar-email__subject">{{ email["subject"] }}</div>
+         <div class="visualizar-email__sender">De: {{ email["sender"] }}</div>
+         <div class="visualizar-email__recipients">Para: {{ email["recipients"] }}</div>
+         <div class="visualizar-email__date">Fecha: {{ email["date"] }}</div>
+         <div class="visualizar-email__cc">CC: {{ email["cc"] }}</div>
+         <div class="visualizar-email__bcc">BCC: {{ email["bcc"] }}</div>
+         <br>
+         <div class="visualizar-email__body">{{ email["body"] }}</div>
+      </div>
+   </div>
+{% endblock content %}

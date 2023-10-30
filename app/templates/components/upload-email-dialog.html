@@ -1,0 +1,17 @@
+<dialog id="email-upload-dialog" class="email-upload-dialog">
+   <h2 class="subtitle text-center">Subí tu correo</h2>
+   <form enctype="multipart/form-data" id="email-form">
+      <div class="drop-zone my-3">
+         <span class="drop-zone__prompt">Drop file here or click to upload</span>
+         <input type="file"
+                name="email"
+                name="email"
+                accept=".html, .htm, .eml, .msg"
+                class="drop-zone__input">
+      </div>
+      <div class="d-flex justify-content-evenly px-5">
+         <button type="button" id="close-email-dialog-button" class="cancel-button">Cancelar</button>
+         <button type="submit" class="submit-button">Subir</button>
+      </div>
+   </form>
+</dialog>

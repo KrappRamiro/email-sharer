@@ -1,13 +1,6 @@
-{% import 'macros/email-list.html' as email_list_macro %}
-{% import 'macros/email-upload.html' as email_upload_macro %}
 {% extends "base.html" %}
 {% block content %}
    <div class="container mt-4">
-      <h1 class="title">
-         Hola {{ current_user.name }}!
-         <br>
-         Buenos días ✨
-      </h1>
       <div class="d-flex align-items-center gap-3">
          <span class="subtitle align-middle">Subir un correo</span>
          <div class="plus-button" id="open-email-dialog-button">
@@ -16,8 +9,8 @@
       </div>
       {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
       <div class="my-4">
-         {{ email_list_macro.list_emails(current_user.owned_emails, current_user, user_icon_url) }}
-         {{ email_upload_macro.dialog() }}
+         {% include "components/email-list.html" %}
+         {% include "components/upload-email-dialog.html" %}
       </div>
    </div>
    <script src="{{ url_for('js', path='email-form.js') }} "></script>

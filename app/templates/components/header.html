@@ -1,0 +1,39 @@
+{% set logo_url = url_for('static', path='img/logo.png') %}
+{% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
+<header class="header">
+   <div class="header__left-side">
+      <div class="header__logo">
+         <a href='{{ url_for("index") }}'>
+            <img class="image-fit-contain" alt="Email Sharer" src="{{ logo_url }}">
+         </img>
+      </a>
+   </div>
+</div>
+<div class="header__right-side">
+   {# Notifications icon #}
+   <div class="header__user">
+      <div class="dropdown">
+         <button class="dropdown-toggle header__user-dropdown-btn"
+                 type="button"
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false">
+            <div class="header__user-icon">
+               <img class="image-fit-contain" alt="user-logo" src="{{ user_icon_url }}">
+            </div>
+         </button>
+         <ul class="dropdown-menu">
+            <li>
+               <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                  <box-icon name='bell'></box-icon>
+                  Notificaciones
+               </a>
+            </li>
+            <li>
+               <a class="dropdown-item d-flex align-items-center gap-2" href="#"><box-icon name='cog' class="header__config"></box-icon> Configuración</a>
+            </li>
+         </ul>
+      </div>
+   </div>
+   {# Config icon #}
+</div>
+</header>

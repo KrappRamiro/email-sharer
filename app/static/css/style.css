@@ -23,19 +23,3 @@ body {
 	font-weight: 600;
 	font-size: 1.7rem;
 }
-
-.plus-button {
-	background-color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 30px;
-	height: 30px;
-	border: 1px solid var(--ps-dark-grey);
-	border-radius: 10px;
-	cursor: pointer;
-}
-
-.plus-button:hover {
-	background-color: var(--ps-lighter-grey);
-}

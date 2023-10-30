@@ -1,11 +1,10 @@
 .header {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 
 	height: var(--header-height);
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 100px;
+	padding-right: 100px;
 
 	background-color: var(--ps-barely-white);
 	border: 1px solid var(--ps-lighter-grey, #d9d9d9);
@@ -15,10 +14,11 @@
 	width: 100%;
 }
 
+.header__left-side {
+	margin-right: auto;
+}
 .header__right-side {
-	display: flex;
-	align-items: center;
-	gap: 30px;
+	margin-left: auto;
 }
 
 .header__logo {
@@ -26,22 +26,19 @@
 	width: auto;
 }
 
-.header__notifications,
-.header__config {
-	height: 20px;
-	width: 20px;
-	color: var(--ps-blue-darker);
-}
-
 .header__user {
 	display: flex;
 	align-items: center;
 }
+
+.header__user-dropdown-btn {
+	display: flex;
+	align-items: center;
+	border: none;
+	background-color: var(--ps-barely-white);
+}
+
 .header__user-icon {
 	height: 40px;
 	width: auto;
-}
-
-.header__user-arrow {
-	color: var(--ps-blue-darker);
 }

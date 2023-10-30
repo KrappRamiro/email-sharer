@@ -1,22 +1,4 @@
 .email-list {
-	border: 1px solid var(--ps-lighter-grey);
-	background-color: #d3ecf7;
-	border-radius: 30px;
-	padding: 30px;
-}
-.email-list__title {
-	font-family: "Work Sans", sans-serif;
-	font-size: 2.5rem;
-	font-weight: 600;
-	color: var(--ps-blue);
-}
-.email-list__subtitle {
-	font-family: "Work Sans", sans-serif;
-	font-size: 2rem;
-	font-weight: 600;
-	color: var(--ps-blue);
-}
-.email-list__email-container {
 	max-height: 500px;
 	overflow-y: scroll;
 	display: flex;

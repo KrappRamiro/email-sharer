@@ -51,7 +51,7 @@ def initialize_emails_to_user(user: User) -> None:
 
 current_user = User(
     name="Sandra Rodriguez",
-    id="01a",
+    id="01b",
 )
 
 initialize_emails_to_user(current_user)

@@ -1,0 +1,26 @@
+.upload-email {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.upload-email__text {
+	color: #6a83c1;
+	font-size: 2rem;
+	font-weight: 600;
+}
+
+.upload-email__button {
+	background-color: var(--ps-blue-075);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	cursor: pointer;
+}
+
+.upload-email__button:hover {
+	background-color: var(--ps-blue-09);
+}

@@ -1,4 +1,3 @@
-{% import 'macros/header.html' as header %}
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -12,7 +11,9 @@
       <link href="{{ url_for('css', path='email-list.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='drop-zone.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='buttons.css') }}" rel="stylesheet">
-      <link href="{{ url_for('css', path='email-upload-dialog.css') }}"
+      <link href="{{ url_for('css', path='welcome.css') }}" rel="stylesheet">
+      <link href="{{ url_for('css', path='upload-email.css') }}" rel="stylesheet">
+      <link href="{{ url_for('css', path='upload-email-dialog.css') }}"
             rel="stylesheet">
       <link href="{{ url_for('css', path='visualizar-email.css') }}"
             rel="stylesheet">
@@ -27,9 +28,7 @@
             crossorigin="anonymous">
    </head>
    <body>
-      {% set logo_url = url_for('static', path='img/logo.png') %}
-      {% set user_icon_url = url_for('static', path='img/user-icons/' ~ current_user.id ~ '.png') %}
-      {{ header.header(logo_url, user_icon_url) }}
+      {% include "components/header.html" %}
       <div class="header-padding">
          {% block content %}
          {% endblock content %}

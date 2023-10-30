@@ -1,13 +1,7 @@
 {% from 'macros/email.html' import email %}
 <div class="email-list">
-   <div class="text-center my-5">
-      <h1 class="email-list__title">Hola {{ current_user.name }}!</h1>
-      <h2 class="email-list__subtitle">Buenos días</h2>
-   </div>
-   <div class="email-list__email-container">
-      {% set user_logo_url = url_for('img', path='user-icons/' ~ current_user.id ~ '.png') %}
-      {% for _email in current_user.owned_emails %}
-         <div class="me-3">{{ email(_email, current_user, user_logo_url) }}</div>
-      {% endfor %}
-   </div>
+   {% set user_logo_url = url_for('img', path='user-icons/' ~ current_user.id ~ '.png') %}
+   {% for _email in current_user.owned_emails %}
+      <div class="me-3">{{ email(_email, current_user, user_logo_url) }}</div>
+   {% endfor %}
 </div>

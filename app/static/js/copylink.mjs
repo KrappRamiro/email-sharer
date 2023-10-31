@@ -15,11 +15,12 @@ function copylink(element) {
 
 function copyLinkToClipboard(anchorEl) {
 	if (anchorEl) {
-		var linkHref = anchorEl.getAttribute("href"); // Get the href attribute
+		let linkHref = anchorEl.getAttribute("href"); // Get the href attribute
+		let fullURL = window.location.origin + linkHref; // Build the full URL
 
-		if (linkHref) {
-			var textArea = document.createElement("textarea");
-			textArea.value = linkHref;
+		if (fullURL) {
+			let textArea = document.createElement("textarea");
+			textArea.value = fullURL;
 
 			// Add the textarea to the document
 			document.body.appendChild(textArea);
@@ -30,9 +31,9 @@ function copyLinkToClipboard(anchorEl) {
 			try {
 				// Execute the copy command
 				document.execCommand("copy");
-				console.log("Link copied to clipboard: " + linkHref);
+				console.log("Full URL copied to clipboard: " + fullURL);
 			} catch (err) {
-				console.error("Unable to copy link to clipboard: " + err);
+				console.error("Unable to copy full URL to clipboard: " + err);
 			}
 
 			// Remove the textarea from the document
@@ -44,4 +45,3 @@ function copyLinkToClipboard(anchorEl) {
 		console.error("No <a> element found on the page.");
 	}
 }
-

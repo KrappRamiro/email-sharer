@@ -45,5 +45,3 @@ function copyLinkToClipboard(anchorEl) {
 	}
 }
 
-// Usage example:
-copyLinkToClipboard();

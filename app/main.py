@@ -1,9 +1,8 @@
-from fastapi import FastAPI, Request, UploadFile, HTTPException, Depends
+from fastapi import FastAPI, Request, UploadFile, File, HTTPException, Depends
 from fastapi.responses import HTMLResponse, FileResponse
+from typing import Annotated
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import os
-from tempfile import SpooledTemporaryFile
 from sqlalchemy.orm import Session
 from sql_app import crud, models, schemas
 from sql_app.database import SessionLocal, engine
@@ -33,25 +32,14 @@ app.mount("/mails", StaticFiles(directory="mails"), name="mails")
 templates = Jinja2Templates(directory="templates")
 
 
-@app.post("/email/parse")
-async def parse_email(email: UploadFile):
-    """
-    Parse an email attachment and return its contents.
-
-    Args:
-        email (UploadFile): The email attachment to parse.
-
-    Returns:
-        dict: Parsed email contents.
-
-    Raises:
-        HTTPException: If the file is not supported.
-    """
-    try:
-        parser = EmailParser()
-        return parser.parse(email.file, email.filename)
-    except ValueError:
-        raise HTTPException(status_code=422, detail="File not supported")
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+        },
+    )
 
 
 @app.post("/users/", response_model=schemas.User)
@@ -113,7 +101,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 @app.post("/users/{user_id}/email/", response_model=schemas.Email)
 def create_email_for_user(
     user_id: int,
-    email: schemas.EmailCreate,
+    email_file: UploadFile,
     db: Session = Depends(get_db),
 ):
     """
@@ -126,7 +114,9 @@ def create_email_for_user(
     Returns:
         schemas.Email: The created email.
     """
-    return crud.create_email(db=db, email=email, user_id=user_id)
+    email_data = EmailParser.parse(email_file.file, email_file.filename)
+    file_data = email_file.file.read()
+    return crud.create_email(db=db, email_data=email_data, file=file_data, user_id=user_id)
 
 
 @app.get("/users/{user_id}/emails/", response_model=list[schemas.Email])
@@ -166,10 +156,77 @@ def read_emails(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return emails
 
 
-@app.post("/emails/{email_id}/attachments", response_model=schemas.Attachment)
-def add_attachment_to_email(
-    email_id: int, attachment: schemas.Attachment, db: Session = Depends(get_db)
+@app.post("/emails/parse")
+async def parse_email(email: UploadFile):
+    """
+    Parse an email attachment and return its contents.
+
+    Args:
+        email (UploadFile): The email attachment to parse.
+
+    Returns:
+        dict: Parsed email contents.
+
+    Raises:
+        HTTPException: If the file is not supported.
+    """
+    try:
+        parser = EmailParser()
+        return parser.parse(email.file, email.filename)
+    except ValueError:
+        raise HTTPException(status_code=422, detail="File not supported")
+
+
+@app.get("/emails/{email_id}/attachments", response_model=list[schemas.Attachment])
+def get_email_attachments(
+    email_id: int, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 ):
+    """
+    Retrieve a list of attachments for a specific email by email_id.
+
+    This endpoint allows you to fetch attachments associated with a specific email.
+
+    Parameters:
+        - `email_id` (int): The unique identifier of the email.
+        - `skip` (int, optional): Number of records to skip in the result (default: 0).
+        - `limit` (int, optional): Maximum number of attachments to retrieve (default: 100).
+        - `db` (Session): The database session dependency.
+
+    Returns:
+        - List[schemas.Attachment]: A list of Attachment objects associated with the email.
+
+    Raises:
+        - HTTPException(404): If the email with the specified email_id is not found.
+
+    Example:
+    ```
+    GET /emails/123/attachments?skip=0&limit=10
+    ```
+
+    Response:
+    ```
+    200 OK
+    [
+        {
+            "id": 1,
+            "email_id": 123,
+            "filename": "attachment1.pdf"
+        },
+        {
+            "id": 2,
+            "email_id": 123,
+            "filename": "attachment2.jpg"
+        },
+        // ... more attachments
+    ]
+    ```
+    """
+
+    return crud.get_email_attachments(db=db, email_id=email_id, skip=skip, limit=limit)
+
+
+@app.post("/emails/{email_id}/attachments", response_model=schemas.Attachment)
+def add_attachment_to_email(email_id: int, attachment: UploadFile, db: Session = Depends(get_db)):
     """
     Add an attachment to a specific email.
 
@@ -180,7 +237,8 @@ def add_attachment_to_email(
     Returns:
         schemas.Attachment: The added attachment.
     """
-    return crud.add_attachment_to_email(db=db, attachment=attachment, email_id=email_id)
+    attachment_file = attachment.file.read()
+    return crud.add_attachment_to_email(db=db, attachment=attachment_file, email_id=email_id)
 
 
 if __name__ == "__main__":

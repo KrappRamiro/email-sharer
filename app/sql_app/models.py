@@ -1,7 +1,7 @@
 # SQLAlchemy uses the term "model" to refer to these classes and instances that interact with the database.
 # But Pydantic also uses the term "model" to refer to something different, the data validation, conversion, and documentation classes and instances.
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, LargeBinary
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -33,6 +33,7 @@ class Email(Base):
     bcc = Column(String, default=None)
     date = Column(String, nullable=False)
     body = Column(String, nullable=False)
+    file = Column(LargeBinary, nullable=False)  # Store attachment as binary
     filename = Column(String, nullable=False)
 
     # Relationship with User.emails
@@ -46,6 +47,7 @@ class Attachment(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email_id = Column(Integer, ForeignKey("emails.id"), nullable=False)
+    file = Column(LargeBinary, nullable=False)  # Store attachment as binary
     filename = Column(String, nullable=False)
     # Relationship with Email.attachments
     email = relationship("Email", back_populates="attachments")

@@ -33,12 +33,22 @@ def get_emails(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Email).offset(skip).limit(limit).all()
 
 
-def get_emails_by_user(db: Session, user_id: int):
-    return db.query(models.Email).filter(models.User.id == user_id).all()
+def get_emails_by_user(db: Session, user_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(models.Email).filter(models.User.id == user_id).offset(skip).limit(limit).all()
+    )
 
 
 def create_email(db: Session, email: schemas.Email, user_id: int):
     db_item = models.Email(**email.dict(), owner_id=user_id)
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def add_attachment_to_email(db: Session, attachment: schemas.Attachment, email_id: int):
+    db_item = models.Attachment(**attachment.dict(), email_id=email_id)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)

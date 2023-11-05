@@ -3,6 +3,8 @@ import extract_msg
 import eml_parser
 import os
 
+# TODO: Map this to schemas.Email
+
 
 class EmailParser:
     @staticmethod

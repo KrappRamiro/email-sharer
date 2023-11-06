@@ -9,7 +9,7 @@ emailForm.addEventListener("submit", async (event) => {
 	const emailFile = emailFileInput.files[0];
 
 	if (!emailFile) {
-		alert("Please select a file to upload.");
+		alert("Por favor seleccione un email para subir.");
 		return;
 	}
 

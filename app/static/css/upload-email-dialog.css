@@ -3,3 +3,12 @@
 	border: 2px solid var(--ps-dark-grey);
 	border-radius: 15px;
 }
+.upload-email-dialog__close {
+	margin-left: auto;
+}
+
+.drop-zone {
+	padding: 10px 100px;
+	display: flex;
+	flex-direction: column;
+}

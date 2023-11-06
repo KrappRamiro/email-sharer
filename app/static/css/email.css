@@ -1,9 +1,9 @@
 .email {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 	width: 100%;
-	padding: 10px;
+	padding: 15px 20px;
 	height: 100px;
 	border-radius: 10px;
 	background-color: var(--ps-barely-white);
@@ -15,33 +15,17 @@
 	border: 1px solid var(--ps-grey);
 }
 
-.email__info {
-	display: flex;
-	align-items: center;
-}
-
-.email__user-icon {
-	height: 60px;
-	width: auto;
-}
-
-.email__info-right {
-	flex: 1; /* Take up remaining space */
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 3px;
-}
-.email__user-name {
+.email__owner-name {
 	font-family: "Work Sans", sans-serif;
-	font-weight: 500;
+	color: var(--ps-blue);
+	font-weight: 600;
 	font-size: 1.2rem;
 }
 .email__date {
 	font-family: "Work Sans", sans-serif;
-	font-size: 0.6rem;
+	font-size: 1rem;
 	font-weight: 400;
-	color: var(--ps-grey);
+	color: var(--ps-light-grey);
 }
 .email__subject {
 	font-family: "DM Sans", sans-serif;

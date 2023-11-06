@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-   <div class="container mt-4">{% include "components/upload-email.html" %}
-	
-	
-	<div id="email-list"></div>
-	</div>
+   <div class="container mt-4">
+      {% include "components/upload-email.html" %}
+      <div id="email-list" class="email-list">
+         <div class="email-list__title">Mis Correos</div>
+      </div>
+   </div>
    {% include "components/upload-email-dialog.html" %}
    <script src="{{ url_for('js', path='email-form.mjs') }} " type="module"></script>
    <script src="{{ url_for('js', path='app.mjs') }} " type="module"></script>
-   <script src="{{ url_for('js', path='dropzone.js') }} "></script>
 {% endblock content %}

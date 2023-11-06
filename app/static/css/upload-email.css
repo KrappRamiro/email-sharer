@@ -1,12 +1,11 @@
 .upload-email {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	justify-content: space-evenly;
+	padding: 10px 20px;
 	border-radius: 5px;
 	/* Todo: Add box shadow */
 	background-color: var(--ps-blue);
-	width: 220px;
-	height: 60px;
 }
 .upload-email__icon {
 	color: white;

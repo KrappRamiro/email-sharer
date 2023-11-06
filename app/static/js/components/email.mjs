@@ -17,7 +17,7 @@ export class Email {
 				</div>
 				<div>
 					<div class="email__middle">
-						<div class="email__subject">${this.email.subject}</div>
+						<a class="email__subject" href="${emailUrl}" >${this.email.subject}</a>
 					</div>
 				</div>
 				<div class="email__right">
@@ -29,7 +29,7 @@ export class Email {
 	}
 	getEmailUrl() {
 		const serverUrl = window.location.origin;
-		const fullEmailUrl = serverUrl + `/visualize-email/${this.email.id}`;
+		const fullEmailUrl = serverUrl + `/visualizar-email/${this.email.id}`;
 		return fullEmailUrl;
 	}
 }

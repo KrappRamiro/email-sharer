@@ -1,5 +1,10 @@
-export async function getUserEmails(user_id) {
-	const url = `/users/${user_id}/emails`;
+export async function getUserEmails(user_id, skip = 0, limit = 3) {
+	const url =
+		`/users/${user_id}/emails/?` +
+		new URLSearchParams({
+			skip: skip,
+			limit: limit,
+		});
 	try {
 		const response = await fetch(url, {
 			method: "GET",

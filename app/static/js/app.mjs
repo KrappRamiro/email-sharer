@@ -2,6 +2,7 @@ import { Dialog } from "./components/email-dialog.mjs";
 import { Email } from "./components/email.mjs";
 import { EmailList } from "./components/emaillist.mjs";
 import { Copylink } from "./components/copylink.mjs";
+import { DropZone } from "./components/dropzone.mjs";
 import { getUserEmails } from "./utils/getUserEmails.mjs";
 import { getCurrentUserId } from "./utils/getCurrentUserId.mjs";
 const currentUserId = getCurrentUserId();
@@ -29,4 +30,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 		const email = new Email(emailData);
 		emailList.add(email.getHtmlElement());
 	});
+
+	// -------- Dropzone initialization ------------
+	document.querySelectorAll(".drop-zone").forEach((dropZoneElement) => {
+		new DropZone(dropZoneElement, true);
+	});
+
+	// -------- Stepper initialization ------------
 });

@@ -109,11 +109,12 @@ def create_email_for_user(
 
     Args:
         user_id (int): User ID.
-        email (schemas.EmailCreate): Email information.
+        email_file (UploadFile): Email attachment to create an email from.
 
     Returns:
         schemas.Email: The created email.
     """
+
     email_data = EmailParser.parse(email_file.file, email_file.filename)
     file_data = email_file.file.read()
     return crud.create_email(db=db, email_data=email_data, file=file_data, user_id=user_id)
@@ -232,7 +233,7 @@ def add_attachment_to_email(email_id: int, attachment: UploadFile, db: Session =
 
     Args:
         email_id (int): ID of the email to which the attachment will be added.
-        attachment (schemas.Attachment): Attachment information to be added.
+        attachment (UploadFile): Attachment file to be added.
 
     Returns:
         schemas.Attachment: The added attachment.

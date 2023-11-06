@@ -1,0 +1,23 @@
+.upload-email {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	border-radius: 5px;
+	/* Todo: Add box shadow */
+	background-color: var(--ps-blue);
+	width: 220px;
+	height: 60px;
+}
+.upload-email__icon {
+	color: white;
+	font-size: 1.5rem;
+}
+
+.upload-email__text {
+	color: white;
+	font-size: 1.5rem;
+}
+
+.upload-email:hover {
+	background-color: rgb(68, 117, 225);
+}

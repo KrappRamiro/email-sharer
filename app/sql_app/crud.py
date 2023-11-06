@@ -26,7 +26,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def get_email(db: Session, email_id: int):
-    return db.query(models.Email).filter_by(email_id=email_id).first()
+    return db.query(models.Email).filter_by(id=email_id).first()
 
 
 def get_emails(db: Session, skip: int = 0, limit: int = 100):

@@ -1,6 +1,11 @@
 import { Dialog } from "./components/email-dialog.mjs";
+import { Email } from "./components/email.mjs";
+import { EmailList } from "./components/emaillist.mjs";
 import { Copylink } from "./components/copylink.mjs";
-document.addEventListener("DOMContentLoaded", () => {
+import { getUserEmails } from "./utils/getUserEmails.mjs";
+import { getCurrentUserId } from "./utils/getCurrentUserId.mjs";
+const currentUserId = getCurrentUserId();
+document.addEventListener("DOMContentLoaded", async () => {
 	// -------- Copylink initialization -----------
 	const copylinks = document.querySelectorAll("[data-copylink]");
 	copylinks.forEach((copylink) => {
@@ -16,4 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	const closeDialogButton = document.querySelector("[data-close-email-dialog]");
 
 	let dialog = new Dialog(dialogEl, openDialogButton, closeDialogButton);
+
+	// -------- Email list initialization -----------
+	let emailList = new EmailList("#email-list");
+	const userEmails = await getUserEmails(currentUserId);
+	userEmails.forEach((emailData) => {
+		const email = new Email(emailData);
+		emailList.add(email.getHtmlElement());
+	});
 });

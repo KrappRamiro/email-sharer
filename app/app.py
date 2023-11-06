@@ -42,6 +42,21 @@ async def index(request: Request):
     )
 
 
+@app.get("/visualizar-email/{email_id}", response_class=HTMLResponse)
+async def visualizar_email(request: Request, email_id: int, db: Session = Depends(get_db)):
+    db_email = crud.get_email(db, email_id)
+    if db_email is None:
+        raise HTTPException(status_code=404, detail=f"email {email_id} not found")
+    return templates.TemplateResponse(
+        "visualizar-email.html",
+        {
+            "request": request,
+            "email": db_email,
+            "owner": db_email.owner,
+        },
+    )
+
+
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     """
@@ -155,6 +170,26 @@ def read_emails(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     emails = crud.get_emails(db, skip=skip, limit=limit)
     return emails
+
+
+@app.get("/emails/{email_id}", response_model=schemas.Email)
+def get_email(email_id: int, db: Session = Depends(get_db)):
+    """
+    Get email information by email ID.
+
+    Args:
+        email_id (int): Email ID.
+
+    Returns:
+        schemas.Email: Email information.
+
+    Raises:
+        HTTPException: If the email is not found.
+    """
+    db_email = crud.get_email(db, email_id)
+    if db_email is None:
+        raise HTTPException(status_code=404, detail=f"email {email_id} not found")
+    return db_email
 
 
 @app.post("/emails/parse")

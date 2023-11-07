@@ -5,7 +5,7 @@ export class Copylink {
 	 */
 	constructor(activatorEl, targetEl) {
 		activatorEl.addEventListener("click", () => {
-			copyLinkToClipboard(targetEl);
+			this.copyLinkToClipboard(targetEl);
 		});
 	}
 
@@ -15,11 +15,9 @@ export class Copylink {
 	copyLinkToClipboard(anchorEl) {
 		if (anchorEl) {
 			let linkHref = anchorEl.getAttribute("href"); // Get the href attribute
-			let fullURL = window.location.origin + linkHref; // Build the full URL
-
-			if (fullURL) {
+			if (linkHref) {
 				let textArea = document.createElement("textarea");
-				textArea.value = fullURL;
+				textArea.value = linkHref;
 
 				// Add the textarea to the document
 				document.body.appendChild(textArea);
@@ -30,7 +28,7 @@ export class Copylink {
 				try {
 					// Execute the copy command
 					document.execCommand("copy");
-					console.log("Full URL copied to clipboard: " + fullURL);
+					console.log("Full URL copied to clipboard: " + linkHref);
 				} catch (err) {
 					console.error("Unable to copy full URL to clipboard: " + err);
 				}

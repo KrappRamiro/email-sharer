@@ -1,0 +1,23 @@
+.copy-link-wrapper {
+	--copy-link-btn-size: 50px;
+	position: relative;
+	z-index: 3;
+	margin-left: 25px;
+	margin-top: 5px;
+}
+
+.copy-link-wrapper::before {
+	content: "";
+	position: absolute;
+	z-index: 2;
+	top: calc(-1 * var(--copy-link-btn-size) * 0.25);
+	left: calc(-1 * var(--copy-link-btn-size) * 0.25);
+	height: var(--copy-link-btn-size);
+	width: var(--copy-link-btn-size);
+	border-radius: 100%;
+	background-color: white;
+}
+.copy-link-icon {
+	position: relative;
+	z-index: 4; /* Set a higher z-index for the icon or its container */
+}

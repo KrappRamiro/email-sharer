@@ -1,16 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
    <div class="container mt-4">
-      <div class="visualizar-email">
-         <div class="visualizar-email__subject">{{ email["subject"] }}</div>
-         <div class="visualizar-email__sender">De: {{ email["sender"] }}</div>
+      <div class="visualizar-email" data-copylink>
+         <div class="d-flex justify-content-between mb-3">
+            <a class="visualizar-email__subject"
+               href=" {{ url_for('visualizar_email', email_id=email['id']) }} "
+               data-copylink-target>{{ email["subject"] }}</a>
+            <div class="copy-link-wrapper"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="Copiar Link"
+                 data-copylink-activator>
+               <box-icon name='link-alt' color='#0c1886' class="copy-link-icon"></box-icon>
+            </div>
+         </div>
+         <div class="d-flex justify-content-between">
+            <div class="visualizar-email__sender">De: {{ email["sender"] }}</div>
+            <div class="visualizar-email__date">Fecha: {{ email["date"] }}</div>
+         </div>
          <div class="visualizar-email__recipients">Para: {{ email["recipients"] }}</div>
-         <div class="visualizar-email__date">Fecha: {{ email["date"] }}</div>
          <div class="visualizar-email__cc">CC: {{ email["cc"] }}</div>
          <div class="visualizar-email__bcc">BCC: {{ email["bcc"] }}</div>
          <br>
          <div class="visualizar-email__body">{{ email["body"] }}</div>
-         
+      </div>
+      <div class="d-flex justify-content-center align-items-center mt-5">
+         <a href="{{ url_for('index') }}">
+            <button class="submit-button p-3">Volver a mis correos</button>
+         </a>
       </div>
    </div>
+   <script src="{{ url_for('js', path='visualizarEmail.mjs') }} " type="module"></script>
 {% endblock content %}

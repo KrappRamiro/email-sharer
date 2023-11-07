@@ -8,6 +8,7 @@
 	border-radius: 10px;
 	background-color: var(--ps-barely-white);
 	border: 1px solid var(--ps-lighter-grey);
+	z-index: 1;
 }
 
 .email:hover {
@@ -29,7 +30,8 @@
 }
 .email__subject {
 	font-family: "DM Sans", sans-serif;
-	font-weight: 400;
+	font-weight: 600;
+	font-size: 1.2rem;
 	outline: none;
 	color: black;
 }

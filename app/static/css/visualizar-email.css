@@ -2,11 +2,18 @@
 	border: 1px solid var(--ps-lighter-grey);
 	border-radius: 30px;
 	padding: 30px;
+	background-color: #f6f0f0;
 }
 .visualizar-email__subject {
 	font-family: "Work Sans", sans-serif;
-	font-size: 2rem;
+	font-size: 1.6rem;
 	font-weight: bold;
+	outline: none;
+	color: black;
+}
+.visualizar-email__subject:link {
+	outline: none;
+	text-decoration: none;
 }
 
 .visualizar-email__sender,

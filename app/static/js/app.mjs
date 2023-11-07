@@ -7,20 +7,10 @@ import { getUserEmails } from "./utils/getUserEmails.mjs";
 import { getCurrentUserId } from "./utils/getCurrentUserId.mjs";
 const currentUserId = getCurrentUserId();
 document.addEventListener("DOMContentLoaded", async () => {
-	// -------- Copylink initialization -----------
-	const copylinks = document.querySelectorAll("[data-copylink]");
-	copylinks.forEach((copylink) => {
-		const activator = copylink.querySelector("[data-copylink-activator]");
-		const target = copylink.querySelector("[data-copylink-target]");
-		let myCopylink = new Copylink(activator, target);
-	});
-
 	// -------- Email upload dialog initialization -----------
-
 	const dialogEl = document.querySelector("#email-upload-dialog");
 	const openDialogButton = document.querySelector("[data-open-email-dialog]");
 	const closeDialogButton = document.querySelector("[data-close-email-dialog]");
-
 	let dialog = new Dialog(dialogEl, openDialogButton, closeDialogButton);
 
 	// -------- Email list initialization -----------
@@ -29,6 +19,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 	userEmails.forEach((emailData) => {
 		const email = new Email(emailData);
 		emailList.add(email.getHtmlElement());
+	});
+
+	// -------- Copylink initialization -----------
+	const copylinks = document.querySelectorAll("[data-copylink]");
+	copylinks.forEach((copylink) => {
+		const activator = copylink.querySelector("[data-copylink-activator]");
+		const target = copylink.querySelector("[data-copylink-target]");
+		let myCopylink = new Copylink(activator, target);
 	});
 
 	// -------- Dropzone initialization ------------

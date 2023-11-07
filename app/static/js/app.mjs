@@ -1,6 +1,6 @@
 import { Dialog } from "./components/email-dialog.mjs";
 import { Email } from "./components/email.mjs";
-import { EmailList } from "./components/emaillist.mjs";
+import { EmailList } from "./components/emailList.mjs";
 import { Paginator } from "./components/paginator.mjs";
 import { Copylink } from "./components/copylink.mjs";
 import { DropZone } from "./components/dropzone.mjs";

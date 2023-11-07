@@ -1,6 +1,6 @@
 import { getUserEmails } from "../utils/getUserEmails.mjs";
 import { getCurrentUserId } from "../utils/getCurrentUserId.mjs";
-import { EmailList } from "../components/emaillist.mjs";
+import { EmailList } from "../components/emailList.mjs";
 import { Email } from "../components/email.mjs";
 export class Paginator {
 	constructor(goLeftBtn, goRightBtn, numOfElements, dots) {

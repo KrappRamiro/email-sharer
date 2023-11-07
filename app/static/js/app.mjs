@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	// -------- Copylink initialization -----------
 	const copylinks = document.querySelectorAll("[data-copylink]");
+	console.log(`found ${copylinks.length} copylinks`);
 	copylinks.forEach((copylink) => {
 		const activator = copylink.querySelector("[data-copylink-activator]");
 		const target = copylink.querySelector("[data-copylink-target]");
@@ -46,4 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const paginatorGoRight = document.querySelector("[data-paginator-go-right]");
 	const numOfElements = await getEmailAmount(currentUserId);
 	const paginator = new Paginator(paginatorGoLeft, paginatorGoRight, numOfElements, dots);
+
+	// --------- Tooltip initialization ----------
+	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+	const tooltipList = [...tooltipTriggerList].map(
+		(tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+	);
 });

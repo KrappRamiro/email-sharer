@@ -11,6 +11,7 @@
       <link href="{{ url_for('css', path='email-list.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='drop-zone.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='buttons.css') }}" rel="stylesheet">
+      <link href="{{ url_for('css', path='paginator.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='copy-link.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='upload-email.css') }}" rel="stylesheet">
       <link href="{{ url_for('css', path='upload-email-dialog.css') }}"
@@ -37,11 +38,13 @@
               integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
               crossorigin="anonymous"></script>
       <script>
-          // --------- Tooltip initialization ----------
-          const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-          const tooltipList = [...tooltipTriggerList].map(
-              (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-          );
+          document.addEventListener("DOMContentLoaded", () => {
+              // --------- Tooltip initialization ----------
+              const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+              const tooltipList = [...tooltipTriggerList].map(
+                  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+              );
+          })
       </script>
    </body>
 </html>

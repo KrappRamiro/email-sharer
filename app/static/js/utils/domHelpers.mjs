@@ -29,3 +29,12 @@ export function findParentBySelector(element, selector) {
 
 	return null; // Return null if no matching parent is found
 }
+export function removeElementsBySelector(parentElement, elementSelector) {
+	if (parentElement) {
+		const elementsToRemove = parentElement.querySelectorAll(elementSelector);
+
+		elementsToRemove.forEach((element) => {
+			element.remove();
+		});
+	}
+}

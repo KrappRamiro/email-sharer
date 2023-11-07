@@ -1,0 +1,9 @@
+.paginator__tab {
+	width: 10px;
+	height: 10px;
+	background-color: grey;
+	border-radius: 100%;
+}
+.paginator__tab.active {
+	background-color: var(--ps-blue);
+}

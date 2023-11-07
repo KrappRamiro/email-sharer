@@ -10,8 +10,9 @@ export class Email {
 	getHtmlElement() {
 		const emailUrl = this.getEmailUrl();
 		const emailElement = document.createElement("div");
+		emailElement.classList.add("email");
+		emailElement.setAttribute("data-copylink", "");
 		emailElement.innerHTML = `
-			<div class="email" data-copylink>
 				<div class="email__left">
 				 <div class="d-flex">
 				 	<div class="email__owner-name"> ${this.email.sender} </div>
@@ -31,7 +32,6 @@ export class Email {
 						<box-icon name='trash' type='solid' color='black'></box-icon>
 					</div>
 				</div>
-			</div>
 		`;
 		return emailElement;
 	}

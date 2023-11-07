@@ -1,10 +1,12 @@
 import { Dialog } from "./components/email-dialog.mjs";
 import { Email } from "./components/email.mjs";
 import { EmailList } from "./components/emaillist.mjs";
+import { Paginator } from "./components/paginator.mjs";
 import { Copylink } from "./components/copylink.mjs";
 import { DropZone } from "./components/dropzone.mjs";
 import { getUserEmails } from "./utils/getUserEmails.mjs";
 import { getCurrentUserId } from "./utils/getCurrentUserId.mjs";
+import { getEmailAmount } from "./utils/getEmailAmount.mjs";
 const currentUserId = getCurrentUserId();
 document.addEventListener("DOMContentLoaded", async () => {
 	// -------- Email upload dialog initialization -----------
@@ -34,5 +36,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 		new DropZone(dropZoneElement, true);
 	});
 
-	// -------- Stepper initialization ------------
+	// -------- Paginator initialization ------------
+	const dots = [
+		document.querySelector("[data-paginator-tab-1]"),
+		document.querySelector("[data-paginator-tab-2]"),
+		document.querySelector("[data-paginator-tab-3]"),
+	];
+	const paginatorGoLeft = document.querySelector("[data-paginator-go-left]");
+	const paginatorGoRight = document.querySelector("[data-paginator-go-right]");
+	const numOfElements = await getEmailAmount(currentUserId);
+	const paginator = new Paginator(paginatorGoLeft, paginatorGoRight, numOfElements, dots);
 });

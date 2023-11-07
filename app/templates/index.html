@@ -8,6 +8,15 @@
             <div class="email-list__title">Mis Correos</div>
          </div>
       </div>
+      <div class="d-flex justify-content-center">
+         <box-icon name='chevron-left' data-paginator-go-left=""></box-icon>
+         <div class="d-flex align-items-center gap-1">
+            <div data-paginator-tab-1 class="paginator__tab"></div>
+            <div data-paginator-tab-2 class="paginator__tab"></div>
+            <div data-paginator-tab-3 class="paginator__tab"></div>
+         </div>
+         <box-icon name='chevron-right' data-paginator-go-right=""></box-icon>
+      </div>
    </div>
    {% include "components/upload-email-dialog.html" %}
    <script src="{{ url_for('js', path='email-form.mjs') }} " type="module"></script>

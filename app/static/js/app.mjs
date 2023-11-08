@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	// -------- Dropzone initialization ------------
 	document.querySelectorAll(".drop-zone").forEach((dropZoneElement) => {
-		new DropZone(dropZoneElement, true);
+		new DropZone(dropZoneElement, false);
 	});
 
 	// -------- Paginator initialization ------------

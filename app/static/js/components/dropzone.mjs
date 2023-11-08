@@ -24,6 +24,7 @@ export class DropZone {
 		this.inputElement = dropZoneElement.querySelector(".drop-zone__input");
 		this.thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 		this.promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
+		this.iconElement = dropZoneElement.querySelector(".drop-zone__icon");
 		this.thumbnailEnabled = thumbnailEnabled; // Control whether thumbnail functionality is enabled
 
 		// Set up event listeners to handle user interactions
@@ -38,8 +39,11 @@ export class DropZone {
 
 		// Handle the file selection and update the thumbnail (if enabled)
 		this.inputElement.addEventListener("change", () => {
-			if (this.inputElement.files.length && this.thumbnailEnabled) {
-				this.updateThumbnail(this.inputElement.files[0]);
+			if (this.inputElement.files.length) {
+				this.promptElement.innerText = this.inputElement.files[0].name;
+				if (this.thumbnailEnabled) {
+					this.updateThumbnail(this.inputElement.files[0]);
+				}
 			}
 		});
 
@@ -58,6 +62,7 @@ export class DropZone {
 
 		// Handle dropping files onto the drop zone
 		this.dropZoneElement.addEventListener("drop", (e) => {
+			console.log("dropzone drop event");
 			e.preventDefault();
 
 			if (e.dataTransfer.files.length) {
@@ -65,6 +70,7 @@ export class DropZone {
 				if (this.thumbnailEnabled) {
 					this.updateThumbnail(e.dataTransfer.files[0]);
 				}
+				this.promptElement.innerText = this.inputElement.files[0].name;
 			}
 
 			// Remove the visual highlight

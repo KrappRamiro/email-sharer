@@ -5,14 +5,19 @@
          <box-icon name='x' size="md" color='black' class="upload-email-dialog__close" data-close-email-dialog></box-icon>
       </div>
       <div class="drop-zone my-3">
+         <box-icon name='paperclip' rotate='270' color='black' size="lg" class="drop-zone__icon"></box-icon>
          <input type="file"
                 name="email"
                 name="email"
                 accept=".html, .htm, .eml, .msg"
                 id="email-file-input"
                 class="drop-zone__input">
-         <div class="drop-zone__prompt">Drop file here or click to upload</div>
-         <div class="drop-zone__thumb"></div>
+         <div class="drop-zone__prompt">
+            Arrastra tu archivo o
+            <br>
+            hace click para añadir
+         </div>
+         {# <div class="drop-zone__thumb"></div> #}
       </div>
       <div class="d-flex justify-content-evenly px-5">
          {# TODO: Cambiar este boton por una X #}

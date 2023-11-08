@@ -24,9 +24,7 @@ export class Email {
 				 </div>
 					<div class="email__date"> ${this.email.date} </div>
 				</div>
-				<div>
-					<div class="email__middle">
-					</div>
+				<div class="email__middle">
 				</div>
 				<div class="email__right">
 					<div class="email__delete-icon">

@@ -6,7 +6,7 @@
 	padding-left: 100px;
 	padding-right: 100px;
 
-	background-color: var(--ps-barely-white);
+	background-color: white;
 	border: 1px solid var(--ps-lighter-grey, #d9d9d9);
 
 	position: fixed;

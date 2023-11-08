@@ -1,10 +1,11 @@
 .email-list {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 15px;
 }
 .email-list__title {
+	font-family: "Mulish", sans-serif;
 	font-size: 2rem;
-	color: #acacac;
+	color: #aeaeae;
 	text-align: center;
 }

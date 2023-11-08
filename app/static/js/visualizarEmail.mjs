@@ -1,4 +1,5 @@
 import { Copylink } from "./components/copylink.mjs";
+import { localizeDate } from "./utils/localizeDate.mjs";
 // -------- Copylink initialization -----------
 const copylinks = document.querySelectorAll("[data-copylink]");
 copylinks.forEach((copylink) => {
@@ -11,4 +12,6 @@ copylinks.forEach((copylink) => {
 	const tooltipList = [...tooltipTriggerList].map(
 		(tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
 	);
+	const emailDate = document.querySelector("[data-translate-date]");
+	emailDate.textContent = `${localizeDate(emailDate.textContent)}`;
 });

@@ -1,5 +1,6 @@
 :root {
-	--header-height: 50px;
+	--header-height: 100px;
+	--bs-body-bg: #f8f8f8;
 
 	/* Colors */
 	/* || --- Blues --- */

@@ -1,19 +1,18 @@
 .email {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: space-between;
 	width: 100%;
 	padding: 15px 20px;
 	height: 100px;
 	border-radius: 10px;
-	background-color: var(--ps-barely-white);
-	border: 1px solid var(--ps-lighter-grey);
+	background-color: rgba(246, 240, 240);
+	box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.25);
 	z-index: 1;
 }
 
 .email:hover {
-	background-color: var(--ps-lighter-grey);
-	border: 1px solid var(--ps-grey);
+	background-color: rgb(236, 232, 232);
 }
 
 .email__owner-name {
@@ -24,16 +23,16 @@
 }
 .email__date {
 	font-family: "Work Sans", sans-serif;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	font-weight: 400;
-	color: var(--ps-light-grey);
+	color: #b2aeb1;
 }
 .email__subject {
-	font-family: "DM Sans", sans-serif;
+	font-family: "Work Sans", sans-serif;
 	font-weight: 600;
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 	outline: none;
-	color: black;
+	color: rgba(12, 24, 134);
 }
 
 .email__subject:link {

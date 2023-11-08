@@ -1,11 +1,12 @@
 .visualizar-email {
 	border: 1px solid var(--ps-lighter-grey);
-	border-radius: 30px;
+	border-radius: 6px;
+	margin-top: 80px;
 	padding: 30px;
 	background-color: #f6f0f0;
 }
 .visualizar-email__subject {
-	font-family: "Work Sans", sans-serif;
+	font-family: "Mulish", sans-serif;
 	font-size: 1.6rem;
 	font-weight: bold;
 	outline: none;
@@ -15,11 +16,19 @@
 	outline: none;
 	text-decoration: none;
 }
+.visualizar-email__sender,
+.visualizar-email__recipients,
+.visualizar-email__date,
+.visualizar-email__cc,
+.visualizar-email__bcc {
+	font-size: 12px;
+	font-family: "Mulish", sans-serif;
+}
 
 .visualizar-email__sender,
 .visualizar-email__recipients,
 .visualizar-email__date {
-	color: var(--ps-dark-grey);
+	color: black;
 }
 .visualizar-email__cc,
 .visualizar-email__bcc {

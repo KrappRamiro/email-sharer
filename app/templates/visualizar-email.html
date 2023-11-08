@@ -13,18 +13,20 @@
                <box-icon name='link-alt' color='#0c1886' class="copy-link-icon"></box-icon>
             </div>
          </div>
-         <div class="d-flex justify-content-between">
-            <div class="visualizar-email__sender">De: {{ email["sender"] }}</div>
-            <div class="visualizar-email__date">Fecha: {{ email["date"] }}</div>
+         <div class="d-flex flex-column gap-2">
+            <div class="d-flex justify-content-between">
+               <div class="visualizar-email__sender">De: {{ email["sender"] }}</div>
+               <div class="visualizar-email__date" data-translate-date="">Fecha: {{ email["date"] }}</div>
+            </div>
+            <div class="visualizar-email__recipients">Para: {{ email["recipients"] }}</div>
+            <div class="visualizar-email__cc">CC: {{ email["cc"] }}</div>
+            <div class="visualizar-email__bcc">BCC: {{ email["bcc"] }}</div>
+            <br>
+            <div class="visualizar-email__body">{{ email["body"] }}</div>
          </div>
-         <div class="visualizar-email__recipients">Para: {{ email["recipients"] }}</div>
-         <div class="visualizar-email__cc">CC: {{ email["cc"] }}</div>
-         <div class="visualizar-email__bcc">BCC: {{ email["bcc"] }}</div>
-         <br>
-         <div class="visualizar-email__body">{{ email["body"] }}</div>
       </div>
       <div class="d-flex justify-content-center align-items-center mt-5">
-         <a href="{{ url_for('index') }}">
+         <a href='{{ url_for("index") }}'>
             <button class="submit-button p-3">Volver a mis correos</button>
          </a>
       </div>

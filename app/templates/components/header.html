@@ -1,4 +1,4 @@
-{% set logo_url = url_for('static', path='img/logo.png') %}
+{% set logo_url = url_for('static', path='img/ps-logo.png') %}
 {% set user_icon_url = url_for('img', path='user-icons/generic-black.svg') %}
 <header class="header">
    <div class="header__left-side">
@@ -14,15 +14,12 @@
    {# Notifications icon #}
    <div class="header__user">
       <div class="header__user-name">Hola Sandra Dora</div>
+      <div class="header__user-icon ms-1">
+         <img class="image-fit-contain" alt="user-logo" src="{{ user_icon_url }}">
+      </div>
+      <!--
       <div class="dropdown">
-         <button class="dropdown-toggle header__user-dropdown-btn"
-                 type="button"
-                 data-bs-toggle="dropdown"
-                 aria-expanded="false">
-            <div class="header__user-icon">
-               <img class="image-fit-contain" alt="user-logo" src="{{ user_icon_url }}">
-            </div>
-         </button>
+         <button class="dropdown-toggle header__user-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
          <ul class="dropdown-menu">
             <li>
                <a class="dropdown-item d-flex align-items-center gap-2" href="#">
@@ -35,6 +32,7 @@
             </li>
          </ul>
       </div>
+		-->
    </div>
    {# Config icon #}
 </div>

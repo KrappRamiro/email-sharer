@@ -1,9 +1,11 @@
+import { localizeDate } from "../utils/localizeDate.mjs";
 export class Email {
 	/**
 	 *
 	 * @param {*} email Must be a python schemas.Email
 	 */
 	constructor(email) {
+		email.date = localizeDate(email.date);
 		this.email = email;
 	}
 
@@ -15,7 +17,7 @@ export class Email {
 		emailElement.innerHTML = `
 				<div class="email__left">
 				 <div class="d-flex">
-				 	<div class="email__owner-name"> ${this.email.sender} </div>
+					<a class="email__subject" data-copylink-target href="${emailUrl}" >${this.email.subject}</a>
 				 	<div class="copy-link-wrapper" data-bs-toggle="tooltip" data-bs-title="Copiar Link" data-copylink-activator>
 						<box-icon name='link-alt' color='#0c1886' class="copy-link-icon" ></box-icon>
 					</div>
@@ -24,7 +26,6 @@ export class Email {
 				</div>
 				<div>
 					<div class="email__middle">
-						<a class="email__subject" data-copylink-target href="${emailUrl}" >${this.email.subject}</a>
 					</div>
 				</div>
 				<div class="email__right">

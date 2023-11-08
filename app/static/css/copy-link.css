@@ -4,6 +4,7 @@
 	z-index: 3;
 	margin-left: 25px;
 	margin-top: 5px;
+	cursor: pointer;
 }
 
 .copy-link-wrapper::before {

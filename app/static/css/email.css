@@ -29,14 +29,14 @@
 }
 .email__date {
 	font-family: "Work Sans", sans-serif;
-	font-size: 1.2rem;
+	font-size: 20px;
 	font-weight: 400;
 	color: #b2aeb1;
 }
 .email__subject {
 	font-family: "Work Sans", sans-serif;
 	font-weight: 600;
-	font-size: 1.4rem;
+	font-size: 26px;
 	outline: none;
 	color: rgba(12, 24, 134);
 }

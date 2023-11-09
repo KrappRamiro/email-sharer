@@ -42,3 +42,9 @@
 	height: 40px;
 	width: auto;
 }
+
+.header__user-name {
+	font-family: "Mulish", sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+}
